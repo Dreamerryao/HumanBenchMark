@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HumanBenchMark</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="reaction_time">Reaction Time</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="verbal_memory">Verbal Memory</string>
+    <string name="number_memory">Number Memory</string>
+</resources>
