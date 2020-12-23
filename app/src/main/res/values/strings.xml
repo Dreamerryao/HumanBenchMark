@@ -7,4 +7,9 @@
     <string name="edit_profile">Edit profile</string>
     <string name="verbal_memory">Verbal Memory</string>
     <string name="number_memory">Number Memory</string>
+    <string name="react_time_test">React Time Test</string>
+    <string name="rt_start_title">When the red box turns green,click as quickly as you can. Click anywhere to start.</string>
+    <string name="rt_waiting">Wait for green</string>
+    <string name="too_short">Too Soon!</string>
+    <string name="rt_again">Click to try again.</string>
 </resources>
