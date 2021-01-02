@@ -11,6 +11,7 @@
         android:theme="@style/Theme.HumanBenchMark">
 
         <activity android:name=".RtActivity"></activity>
+        <activity android:name=".ui.notifications.TypingTestActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

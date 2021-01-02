@@ -53,6 +53,10 @@ public class NotificationsFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), RtActivity.class);
                         startActivity(intent);
                         break;
+                    case 2://typing test
+                        Intent intent1 = new Intent(getActivity(),TypingTestActivity.class);
+                        startActivity(intent1);
+                        break;
                     default:
                         break;
                 }
