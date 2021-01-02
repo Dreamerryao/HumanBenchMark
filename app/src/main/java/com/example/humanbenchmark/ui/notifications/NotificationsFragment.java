@@ -57,6 +57,11 @@ public class NotificationsFragment extends Fragment {
                     case 1://aim_trainer
                         Intent aimIntent = new Intent(getActivity(), AtActivity.class);
                         startActivity(aimIntent);
+                        break;
+                    case 2://typing test
+                        Intent intent1 = new Intent(getActivity(),TypingTestActivity.class);
+                        startActivity(intent1);
+                        break;
                     default:
                         break;
                 }
