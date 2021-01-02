@@ -40,7 +40,7 @@ public class NmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 user_input.setVisibility(View.GONE);
                 nm_enter.setVisibility(View.GONE);
-                if(Integer.parseInt(user_input.getText().toString()) == Integer.parseInt(res)) {
+                if(res!=""&&(Integer.parseInt(user_input.getText().toString()) == Integer.parseInt(res))) {
                     Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_LONG).show();
                     user_input.setText("");
                     level++;
