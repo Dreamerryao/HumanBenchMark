@@ -21,4 +21,9 @@
     <string name="tt_head">Typing Test</string>
     <string name="tt_start">Start typing to begin.</string>
     <string name="tt_title">How many characters per minute can you type?</string>
+    <string name="nm_head">Number Memory</string>
+    <string name="nm_title">The average person can remember 7 numbers at once.Can you do more?</string>
+    <string name="nm_start">start</string>
+    <string name="nm_enter">Enter</string>
+    <string name="nm_retry">Again</string>
 </resources>

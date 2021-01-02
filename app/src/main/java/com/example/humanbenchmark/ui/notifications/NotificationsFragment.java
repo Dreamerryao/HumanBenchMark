@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.humanbenchmark.AtActivity;
+import com.example.humanbenchmark.NmActivity;
 import com.example.humanbenchmark.R;
 import com.example.humanbenchmark.RtActivity;
 import com.example.humanbenchmark.TypingTestActivity;
@@ -58,6 +59,10 @@ public class NotificationsFragment extends Fragment {
                     case 2://typing test
                         Intent intent1 = new Intent(getActivity(), TypingTestActivity.class);
                         startActivity(intent1);
+                        break;
+                    case 3:
+                        Intent nmIntent = new Intent(getActivity(), NmActivity.class);
+                        startActivity(nmIntent);
                         break;
                     default:
                         break;
