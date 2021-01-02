@@ -27,6 +27,7 @@ public class RtActivity extends AppCompatActivity {
     ConstraintLayout myLayout;
     TimerTask myTimerTask;
 
+
     private int state = 0;//初始状态
     @Override
     protected void onCreate(Bundle savedInstanceState) {

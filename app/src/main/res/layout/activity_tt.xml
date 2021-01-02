@@ -2,13 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
+    android:background="@color/rt_blue"
     android:orientation="vertical" >
+        <TextView
+            android:id="@+id/txtTimer"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:text="@string/tt_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/tt_title"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="24sp"
+            android:text="@string/tt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center_horizontal" />
+        <Button
+            android:id="@+id/try_again"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Again"
+            android:onClick="tryAgain"
+            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/txtLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            >
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/article"
-        android:textSize="20sp" />
-
+                <TextView
+                    android:id="@+id/txtParagraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/article"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tt_second_title"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="24sp"
+            android:text="@string/tt_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center_horizontal" />
 </LinearLayout>
