@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.humanbenchmark.AtActivity;
 import com.example.humanbenchmark.R;
 import com.example.humanbenchmark.RtActivity;
 
@@ -53,6 +54,9 @@ public class NotificationsFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), RtActivity.class);
                         startActivity(intent);
                         break;
+                    case 1://aim_trainer
+                        Intent aimIntent = new Intent(getActivity(), AtActivity.class);
+                        startActivity(aimIntent);
                     default:
                         break;
                 }

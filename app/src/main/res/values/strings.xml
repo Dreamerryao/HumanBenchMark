@@ -12,4 +12,9 @@
     <string name="rt_waiting">Wait for green</string>
     <string name="too_short">Too Soon!</string>
     <string name="rt_again">Click to try again.</string>
+    <string name="aim_trainer">Aim Trainer</string>
+    <string name="at_start_title">Hit 30 targets as quickly as you can.</string>
+    <string name="at_start_title_second">Click the target above to begin.</string>
+    <string name="aim_pic">Aim picture</string>
+    <string name="AtRemain">Remaining</string>
 </resources>

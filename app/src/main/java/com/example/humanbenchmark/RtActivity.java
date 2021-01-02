@@ -39,30 +39,6 @@ public class RtActivity extends AppCompatActivity {
         RtHead = findViewById(R.id.RtHead);
         RtTitle = findViewById(R.id.RtTitle);
         myLayout = findViewById(R.id.RtLayout);
-
-//        start = findViewById(R.id.start_button);
-//        start.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                start.setEnabled(false);
-//                clickArea.setBackgroundColor((getResources().getColor(R.color.red)));
-//                timer.schedule(new TimerTask() {
-//                    public void run() {
-//                        runOnUiThread(run);
-//                    }
-//                }, (int)(Math.random() * 5000 + 1000));
-//            }
-//        });
-
-//        clickArea.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View v) {
-//                elapsedTime = "Your reaction time is " + (int)(SystemClock.elapsedRealtime() - startTime) + " ms.";
-//                clickArea.setText(elapsedTime);
-//                clickArea.setEnabled(false);
-//                start.setEnabled(true);
-//            }
-//
-//        });
     }
     final Runnable run = new Runnable() {
         @Override
