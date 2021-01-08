@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_bg"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+        <LinearLayout
+            android:id="@+id/login_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <ImageView
+                android:id="@+id/logo_img"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/shandian"
+                />
+            <TextView
+                android:id="@+id/login_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+
+                android:layout_below="@+id/logo_img"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/login_view"
+            android:layout_below="@+id/login_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <Button
+                android:id="@+id/login_btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/login_input_layout"
+                android:layout_centerInParent="true"
+                android:background="@drawable/translucent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="登录"
+                android:textSize="16sp"
+                android:textColor="@color/half_black_2"
+                app:backgroundTint="@color/half_black_2"
+                />
+
+            <Button
+                android:id="@+id/login_btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/login_btn_login"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/translucent"
+                android:text="注册"
+
+                android:textColor="@color/half_black_2"
+                android:textSize="16sp"
+                app:backgroundTint="@color/half_black_2" />
+
+            <include
+                android:id="@+id/login_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                layout="@layout/login_input_layout" />
+
+<!--            <include-->
+<!--                android:id="@+id/login_layout_progress"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="130dp"-->
+<!--                layout="@layout/login_layout_progress"-->
+<!--                android:visibility="gone" />-->
+
+        </RelativeLayout>
+    </RelativeLayout>
+    </RelativeLayout>

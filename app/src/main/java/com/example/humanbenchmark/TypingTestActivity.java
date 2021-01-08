@@ -198,4 +198,10 @@ public class TypingTestActivity extends AppCompatActivity {
         tt_cpm.setText(R.string.tt_head);
         tt_sec_timer.setVisibility(View.VISIBLE);
     }
+    @Override
+    protected void onDestroy() {
+        timer.cancel();
+        super.onDestroy();
+
+    }
 }

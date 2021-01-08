@@ -26,4 +26,7 @@
     <string name="nm_start">start</string>
     <string name="nm_enter">Enter</string>
     <string name="nm_retry">Again</string>
+    <string name="app_copyright">Designed by Dreamerryao and KingDomAAA from ZJU.</string>
+    <string name="app_name_cn">测试你的反应能力</string>
+
 </resources>
