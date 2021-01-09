@@ -119,10 +119,11 @@ public class MainActivity extends AppCompatActivity {
                     beginTransaction();
             if (!to.isAdded()) {
                 Log.i("LOGCAT","to is added not true");
-                transaction.hide(from).add(R.id.nav_host_fragment, to).commit();
-
+//                transaction.hide(from).add(R.id.nav_host_fragment, to).commit();
+                transaction.replace(R.id.nav_host_fragment,to).commit();
             } else {
-                transaction.hide(from).show(to).commit();
+                transaction.replace(R.id.nav_host_fragment,to).commit();
+//                transaction.hide(from).show(to).commit();
             }
         }
     }

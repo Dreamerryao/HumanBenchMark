@@ -2,14 +2,31 @@ package com.example.humanbenchmark;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.humanbenchmark.util.APIUtils;
+import com.example.humanbenchmark.util.SharedHelper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 public class NmActivity extends AppCompatActivity {
     private TextView nm_head;
@@ -23,11 +40,15 @@ public class NmActivity extends AppCompatActivity {
     private int level = 1;
     private String res = "";
     private TextView time_left;
+    private Context mContext;
+    private SharedHelper sh;
     CountDownTimer cdt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nm);
+        mContext = getApplicationContext();
+        sh= new SharedHelper(mContext);
         nm_head = findViewById(R.id.NmHead);
         nm_title = findViewById(R.id.NmTitle);
         nm_start = findViewById(R.id.nm_start);
@@ -56,6 +77,7 @@ public class NmActivity extends AppCompatActivity {
                     cdt.start();
                 }
                 else {
+                    PostScore();
                     nm_head.setText("Your score is Level"+level+"!");
                     nm_head.setVisibility(View.VISIBLE);
                     nm_title.setText("click to try again");
@@ -120,4 +142,95 @@ public class NmActivity extends AppCompatActivity {
 //        String temp = "Level: " + level;
 //        level.setText(temp);
 //    }
+public void PostScore(){
+    new Thread() {
+        public void run() {
+            int msg_what = 0x006;
+            String post_url = APIUtils.PO_URL;
+            //拼装url
+            //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
+            try {
+                Log.e("userId",sh.get(SharedHelper.USERID));
+                Log.e("score",level+"");
+                String lastUrl = post_url + "?userId="+ URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8")+"&testId=4&score="+URLEncoder.encode(level+"", "utf-8");
+                URL url = new URL(lastUrl);
+                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
+                //设置访问时长和相应时长
+                urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
+                urlConn.setReadTimeout(5*1000);//设置读取时间为5秒
+                int code = urlConn.getResponseCode();//获得相应码
+                if(code == 200){//相应成功，获得相应的数据
+                    InputStream is = urlConn.getInputStream();//得到数据流（输入流）
+                    byte[] buffer = new byte[1024];
+                    int length = 0;
+                    String data = "";
+                    while((length = is.read(buffer)) != -1){
+                        String str = new String(buffer,0,length);
+                        data += str;
+                    }
+                    Log.e("Drea",data);
+                    // use properties to restore the map
+                    Properties props = new Properties();
+                    props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
+                    Map<String, String> map2 = new HashMap<String, String>();
+                    for (Map.Entry<Object, Object> e : props.entrySet()) {
+//                                    Log.e("Fuck",e.getKey().toString());
+//                                    Log.e("Fuckk",e.getValue().toString());
+                        map2.put(e.getKey().toString(), e.getValue().toString());
+                    }
+//                                Log.e("Drea",map2.toString());
+//                                if(map2.containsKey("resCode")){
+//                                    Log.e("fufsda",map2.get("resCode"));
+//                                }
+                    //解析json，展示在ListView（GridView）
+                    if(map2.containsKey("resCode")&&(map2.get("resCode").equals("400"))){
+                        msg_what = 0x005;
+                    }
+
+                    else {
+                        msg_what = 0x002;
+                    }
+                }
+                else{
+                    msg_what = 0x007;
+                }
+
+
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            handler.sendEmptyMessage(msg_what);
+        }
+    }.start();
+}
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 0x002:
+                    Toast.makeText(NmActivity.this, "上传成绩失败", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 0x005:
+                    Toast.makeText(NmActivity.this, "上传成绩成功", Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 0x006:
+                    Toast.makeText(NmActivity.this, "无法解析的响应", Toast.LENGTH_SHORT).show();
+                    break;
+                case 0x007:
+                    Toast.makeText(NmActivity.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(NmActivity.this, "Invalid msg.what", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        };
+    };
 }

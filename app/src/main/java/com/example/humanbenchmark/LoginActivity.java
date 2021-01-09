@@ -52,10 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         edit_pwd = findViewById(R.id.input_login_pwd);
         btn_login = findViewById(R.id.login_btn_login);
         btn_register = findViewById(R.id.login_btn_register);
+        edit_name.setText(sh.get(SharedHelper.USERNAME));
+        edit_pwd.setText(sh.get(SharedHelper.PASSWORD));
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 Toast.makeText(mContext,"switch to register activity~ ",Toast.LENGTH_SHORT).show();
             }
         });
@@ -133,9 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
-//                        JSONObject login_json = JSONObject.fromObject(login_res);
-//                        Toast.makeText(mContext, "登陆成功", Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(mContext, MainActivity.class));
                         handler.sendEmptyMessage(msg_what);
                     }
                 }.start();
