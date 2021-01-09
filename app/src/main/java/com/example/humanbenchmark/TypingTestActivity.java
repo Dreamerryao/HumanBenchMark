@@ -54,6 +54,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 hideKeyBoard();
             }
         });
+        tv_in.requestFocus();
     }
 
     @Override
@@ -88,7 +89,8 @@ public class TypingTestActivity extends AppCompatActivity {
                         if(count==tv_in.length()+1){
                             finishTest();
                         }
-                        return true;
+                        break;
+//                        return true;
                     case KeyEvent.KEYCODE_BACK:
                     case KeyEvent.KEYCODE_DEL:
                         tt_cpm.setText(time==0?0+"":(int)(success*60/time)+"");
@@ -137,8 +139,9 @@ public class TypingTestActivity extends AppCompatActivity {
                         if(count==tv_in.length()+1){
                             finishTest();
                         }
+                       break;
                 }
-                break;
+
             case KeyEvent.ACTION_DOWN:
             default:
                 break;
