@@ -50,37 +50,6 @@ public class InitActivity extends AppCompatActivity {
 
                 // judge if success
                 if (res.indexOf("success") != -1) {
-//                    String username = sh.get(SharedHelper.USERNAME);
-//                    String password = sh.get(SharedHelper.PASSWORD);
-//                    // try login
-//                    if(username!= null  && password != null){
-//
-//                        // set argus
-//                        HashMap <String, String> arguments = new HashMap<>();
-//                        arguments.put("username", username);
-//                        arguments.put("password", password);
-//
-//                        // try login
-//                        String login_url = APIUtils.INIT_URL;
-////                        String login_url = APIUtils.LOGIN_URL;
-//                        String login_res = GetData.getFormbodyPostData(login_url, arguments, false);
-//                        JSONObject login_json = JSONObject.fromObject(login_res);
-//
-//
-// check server
-//                        if(login_json == null){
-//                            handler.sendEmptyMessage(0x002);
-//                            return;
-//                        }
-//
-//                        // judge if success
-//                        if(login_json.containsKey("success") && "OK".equals(login_json.getString("success"))){
-//                            sh.save(SharedHelper.TEMPUSERNAME, username);
-//                            sh.save(SharedHelper.LOGINTIME, TimeUtils.getCurrentTime());
-//                            handler.sendEmptyMessage(0x001);
-//                            return;
-//                        }
-//                    }
                     handler.sendEmptyMessage(0x003);
                 } else {
                     handler.sendEmptyMessage(0x002);
