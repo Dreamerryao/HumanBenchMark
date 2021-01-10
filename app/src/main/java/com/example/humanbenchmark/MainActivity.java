@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -62,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext= getApplicationContext();
+        mContext = getApplicationContext();
 
 //        viewPager = findViewById(R.id.viewpager);
         mFragmentList = new ArrayList<>();
@@ -112,17 +114,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public void switchFragment(Fragment from, Fragment to) throws ParseException {
         if (mCurrentFragment != to) {
             mCurrentFragment = to;
             FragmentTransaction transaction = getSupportFragmentManager().
                     beginTransaction();
             if (!to.isAdded()) {
-                Log.i("LOGCAT","to is added not true");
+                Log.i("LOGCAT", "to is added not true");
 //                transaction.hide(from).add(R.id.nav_host_fragment, to).commit();
-                transaction.replace(R.id.nav_host_fragment,to).commit();
+                transaction.replace(R.id.nav_host_fragment, to).commit();
             } else {
-                transaction.replace(R.id.nav_host_fragment,to).commit();
+                transaction.replace(R.id.nav_host_fragment, to).commit();
 //                transaction.hide(from).show(to).commit();
             }
         }

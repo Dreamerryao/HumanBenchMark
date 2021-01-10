@@ -33,21 +33,22 @@ import java.util.Map;
 import java.util.Properties;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btn_login,btn_register;
+    private Button btn_login, btn_register;
     private Context mContext;
     private EditText edit_name;
     private EditText edit_pwd;
     private SharedHelper sh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = getApplicationContext();
-        sh= new SharedHelper(mContext);
+        sh = new SharedHelper(mContext);
         bindViews();
     }
 
-    private void bindViews(){
+    private void bindViews() {
         edit_name = findViewById(R.id.input_login_name);
         edit_pwd = findViewById(R.id.input_login_pwd);
         btn_login = findViewById(R.id.login_btn_login);
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-                Toast.makeText(mContext,"switch to register activity~ ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "switch to register activity~ ", Toast.LENGTH_SHORT).show();
             }
         });
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +68,8 @@ public class LoginActivity extends AppCompatActivity {
                 new Thread() {
                     public void run() {
                         int msg_what = 0x006;
-                        String username= edit_name.getText().toString();
-                        String password= edit_pwd.getText().toString();
+                        String username = edit_name.getText().toString();
+                        String password = edit_pwd.getText().toString();
 //                        HashMap<String, String> arguments = new HashMap<>();
 //                        arguments.put("account", username);
 //                        arguments.put("password", password);
@@ -77,27 +78,27 @@ public class LoginActivity extends AppCompatActivity {
                         //拼装url
                         //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
                         try {
-                            String lastUrl = login_url + "?account="+ URLEncoder.encode(username, "utf-8")+"&password="+password;
+                            String lastUrl = login_url + "?account=" + URLEncoder.encode(username, "utf-8") + "&password=" + password;
                             URL url = new URL(lastUrl);
                             HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
                             //设置访问时长和相应时长
-                            urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
-                            urlConn.setReadTimeout(5*1000);//设置读取时间为5秒
+                            urlConn.setConnectTimeout(5 * 1000);//设置连接时间为5秒
+                            urlConn.setReadTimeout(5 * 1000);//设置读取时间为5秒
                             int code = urlConn.getResponseCode();//获得相应码
-                            if(code == 200){//相应成功，获得相应的数据
+                            if (code == 200) {//相应成功，获得相应的数据
                                 InputStream is = urlConn.getInputStream();//得到数据流（输入流）
                                 byte[] buffer = new byte[1024];
                                 int length = 0;
                                 String data = "";
-                                while((length = is.read(buffer)) != -1){
-                                    String str = new String(buffer,0,length);
+                                while ((length = is.read(buffer)) != -1) {
+                                    String str = new String(buffer, 0, length);
                                     data += str;
                                 }
-                                Log.e("Drea",data);
+                                Log.e("Drea", data);
                                 // use properties to restore the map
                                 Properties props = new Properties();
                                 props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
-                                        Map<String, String> map2 = new HashMap<String, String>();
+                                Map<String, String> map2 = new HashMap<String, String>();
                                 for (Map.Entry<Object, Object> e : props.entrySet()) {
 //                                    Log.e("Fuck",e.getKey().toString());
 //                                    Log.e("Fuckk",e.getValue().toString());
@@ -108,22 +109,19 @@ public class LoginActivity extends AppCompatActivity {
 //                                    Log.e("fufsda",map2.get("resCode"));
 //                                }
                                 //解析json，展示在ListView（GridView）
-                                if(map2.containsKey("resCode")&&(map2.get("resCode").equals("201"))){
+                                if (map2.containsKey("resCode") && (map2.get("resCode").equals("201"))) {
                                     sh.save(SharedHelper.USERNAME, username);
                                     sh.save(SharedHelper.PASSWORD, password);
-                                    sh.save(SharedHelper.USERID,map2.get("userId"));
+                                    sh.save(SharedHelper.USERID, map2.get("userId"));
                                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-                                    sh.save(SharedHelper.LOGINTIME,df.format(new Date()));
+                                    sh.save(SharedHelper.LOGINTIME, df.format(new Date()));
                                     msg_what = 0x005;
-                                }
-                                else if(map2.containsKey("resCode")&&(map2.get("resCode").equals("203"))){
+                                } else if (map2.containsKey("resCode") && (map2.get("resCode").equals("203"))) {
                                     msg_what = 0x001;
-                                }
-                                else if(map2.containsKey("resCode")&&(map2.get("resCode").equals("202"))){
+                                } else if (map2.containsKey("resCode") && (map2.get("resCode").equals("202"))) {
                                     msg_what = 0x002;
                                 }
-                            }
-                            else{
+                            } else {
                                 msg_what = 0x007;
                             }
 
@@ -157,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 case 0x005:
                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
@@ -172,6 +170,8 @@ public class LoginActivity extends AppCompatActivity {
                     break;
 
             }
-        };
+        }
+
+        ;
     };
 }

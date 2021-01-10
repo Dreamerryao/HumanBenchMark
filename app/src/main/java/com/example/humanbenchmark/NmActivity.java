@@ -43,12 +43,13 @@ public class NmActivity extends AppCompatActivity {
     private Context mContext;
     private SharedHelper sh;
     CountDownTimer cdt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nm);
         mContext = getApplicationContext();
-        sh= new SharedHelper(mContext);
+        sh = new SharedHelper(mContext);
         nm_head = findViewById(R.id.NmHead);
         nm_title = findViewById(R.id.NmTitle);
         nm_start = findViewById(R.id.nm_start);
@@ -61,24 +62,23 @@ public class NmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 user_input.setVisibility(View.GONE);
                 nm_enter.setVisibility(View.GONE);
-                if(res!=""&&(Integer.parseInt(user_input.getText().toString()) == Integer.parseInt(res))) {
+                if (res != "" && (Integer.parseInt(user_input.getText().toString()) == Integer.parseInt(res))) {
                     Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_LONG).show();
                     user_input.setText("");
                     level++;
-                    nm_level.setText("Level:"+level);
+                    nm_level.setText("Level:" + level);
                     res = "";
-                    for(int i = 1;i<=level;i++){
-                        res += numbers.charAt((int)(Math.random()*9));
+                    for (int i = 1; i <= level; i++) {
+                        res += numbers.charAt((int) (Math.random() * 9));
                     }
                     nm_head.setText(res);
                     nm_head.setVisibility(View.VISIBLE);
                     nm_level.setVisibility(View.VISIBLE);
                     time_left.setVisibility(View.VISIBLE);
                     cdt.start();
-                }
-                else {
+                } else {
                     PostScore();
-                    nm_head.setText("Your score is Level"+level+"!");
+                    nm_head.setText("Your score is Level" + level + "!");
                     nm_head.setVisibility(View.VISIBLE);
                     nm_title.setText("click to try again");
                     nm_head.setVisibility(View.VISIBLE);
@@ -89,8 +89,9 @@ public class NmActivity extends AppCompatActivity {
         });
         cdt = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                time_left.setText((int)(millisUntilFinished / 1000) + "s");
+                time_left.setText((int) (millisUntilFinished / 1000) + "s");
             }
+
             public void onFinish() {
                 time_left.setText("");
                 time_left.setVisibility(View.GONE);
@@ -106,15 +107,15 @@ public class NmActivity extends AppCompatActivity {
 
     public void handleNmStart(View view) {
         res = "";
-        for(int i = 1;i<=level;i++){
-            res += numbers.charAt((int)(Math.random()*9));
+        for (int i = 1; i <= level; i++) {
+            res += numbers.charAt((int) (Math.random() * 9));
         }
         nm_head.setText(res);
         nm_start.setVisibility(View.GONE);
         nm_title.setVisibility(View.GONE);
 //        nm_enter.setVisibility(View.VISIBLE);
 //        user_input.setVisibility(View.VISIBLE);
-        nm_level.setText("Level:"+level);
+        nm_level.setText("Level:" + level);
         nm_level.setVisibility(View.VISIBLE);
         time_left.setVisibility(View.VISIBLE);
         cdt.start();
@@ -136,77 +137,74 @@ public class NmActivity extends AppCompatActivity {
         nm_title.setVisibility(View.VISIBLE);
     }
 
-//
+    //
 //    private void updateLevel() {
 //        level++;
 //        String temp = "Level: " + level;
 //        level.setText(temp);
 //    }
-public void PostScore(){
-    new Thread() {
-        public void run() {
-            int msg_what = 0x006;
-            String post_url = APIUtils.PO_URL;
-            //拼装url
-            //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
-            try {
-                Log.e("userId",sh.get(SharedHelper.USERID));
-                Log.e("score",level+"");
-                String lastUrl = post_url + "?userId="+ URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8")+"&testId=4&score="+URLEncoder.encode(level+"", "utf-8");
-                URL url = new URL(lastUrl);
-                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
-                //设置访问时长和相应时长
-                urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
-                urlConn.setReadTimeout(5*1000);//设置读取时间为5秒
-                int code = urlConn.getResponseCode();//获得相应码
-                if(code == 200){//相应成功，获得相应的数据
-                    InputStream is = urlConn.getInputStream();//得到数据流（输入流）
-                    byte[] buffer = new byte[1024];
-                    int length = 0;
-                    String data = "";
-                    while((length = is.read(buffer)) != -1){
-                        String str = new String(buffer,0,length);
-                        data += str;
-                    }
-                    Log.e("Drea",data);
-                    // use properties to restore the map
-                    Properties props = new Properties();
-                    props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
-                    Map<String, String> map2 = new HashMap<String, String>();
-                    for (Map.Entry<Object, Object> e : props.entrySet()) {
+    public void PostScore() {
+        new Thread() {
+            public void run() {
+                int msg_what = 0x006;
+                String post_url = APIUtils.PO_URL;
+                //拼装url
+                //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
+                try {
+                    Log.e("userId", sh.get(SharedHelper.USERID));
+                    Log.e("score", level + "");
+                    String lastUrl = post_url + "?userId=" + URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8") + "&testId=4&score=" + URLEncoder.encode(level + "", "utf-8");
+                    URL url = new URL(lastUrl);
+                    HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
+                    //设置访问时长和相应时长
+                    urlConn.setConnectTimeout(5 * 1000);//设置连接时间为5秒
+                    urlConn.setReadTimeout(5 * 1000);//设置读取时间为5秒
+                    int code = urlConn.getResponseCode();//获得相应码
+                    if (code == 200) {//相应成功，获得相应的数据
+                        InputStream is = urlConn.getInputStream();//得到数据流（输入流）
+                        byte[] buffer = new byte[1024];
+                        int length = 0;
+                        String data = "";
+                        while ((length = is.read(buffer)) != -1) {
+                            String str = new String(buffer, 0, length);
+                            data += str;
+                        }
+                        Log.e("Drea", data);
+                        // use properties to restore the map
+                        Properties props = new Properties();
+                        props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
+                        Map<String, String> map2 = new HashMap<String, String>();
+                        for (Map.Entry<Object, Object> e : props.entrySet()) {
 //                                    Log.e("Fuck",e.getKey().toString());
 //                                    Log.e("Fuckk",e.getValue().toString());
-                        map2.put(e.getKey().toString(), e.getValue().toString());
-                    }
+                            map2.put(e.getKey().toString(), e.getValue().toString());
+                        }
 //                                Log.e("Drea",map2.toString());
 //                                if(map2.containsKey("resCode")){
 //                                    Log.e("fufsda",map2.get("resCode"));
 //                                }
-                    //解析json，展示在ListView（GridView）
-                    if(map2.containsKey("resCode")&&(map2.get("resCode").equals("400"))){
-                        msg_what = 0x005;
+                        //解析json，展示在ListView（GridView）
+                        if (map2.containsKey("resCode") && (map2.get("resCode").equals("400"))) {
+                            msg_what = 0x005;
+                        } else {
+                            msg_what = 0x002;
+                        }
+                    } else {
+                        msg_what = 0x007;
                     }
 
-                    else {
-                        msg_what = 0x002;
-                    }
-                }
-                else{
-                    msg_what = 0x007;
-                }
 
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                handler.sendEmptyMessage(msg_what);
             }
-            handler.sendEmptyMessage(msg_what);
-        }
-    }.start();
-}
+        }.start();
+    }
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -231,6 +229,8 @@ public void PostScore(){
                     break;
 
             }
-        };
+        }
+
+        ;
     };
 }

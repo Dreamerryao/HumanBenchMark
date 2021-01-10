@@ -12,21 +12,22 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.humanbenchmark.R;
+
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
     private List<stats_item> statsList;
     private ClickListener<ImageButton> clickListener;
 
-    RecyclerViewAdapter(Context context,List<stats_item> statsList){
+    RecyclerViewAdapter(Context context, List<stats_item> statsList) {
         this.context = context;//上下文
         this.statsList = statsList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_adapter_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_adapter_layout, parent, false);
         return new MyViewHolder(view);
 
     }
@@ -38,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final ImageButton img = holder.image;
         holder.title.setText(item.getName());
         holder.score.setText(item.getScore());
-        holder.perc.setText("超过了"+item.getPerc()+"的人");
+        holder.perc.setText("超过了" + item.getPerc() + "的人");
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private ImageButton image;
         private TextView score;
         private TextView perc;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.item_name);

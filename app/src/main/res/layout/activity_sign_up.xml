@@ -6,167 +6,171 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
     tools:context=".SignUpActivity">
-        <RelativeLayout
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+
+        <LinearLayout
+            android:id="@+id/signUp_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logo_img"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/shandian" />
+
+            <TextView
+                android:id="@+id/login_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo_img"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/sign_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/signUp_title"
+            android:layout_centerInParent="true">
+
+            <Button
+                android:id="@+id/sign_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/login_input_layout"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/translucent"
+                android:text="确认并登录"
+                android:textColor="@color/half_black_2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/half_black_2" />
 
 
-            <LinearLayout
-                android:id="@+id/signUp_title"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-                <ImageView
-                    android:id="@+id/logo_img"
-                    android:layout_width="300dp"
-                    android:layout_height="150dp"
-                    android:layout_alignWithParentIfMissing="false"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/shandian"
-                    />
-                <TextView
-                    android:id="@+id/login_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:text="@string/app_name"
-                    android:textColor="@color/black"
-                    android:textSize="30sp"
-                    android:layout_below="@+id/logo_img"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/sign_view"
-                android:layout_below="@+id/signUp_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true">
-
-                <Button
-                    android:id="@+id/sign_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/login_input_layout"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/translucent"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginRight="60dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="确认"
-                    android:textSize="16sp"
-                    android:textColor="@color/half_black_2"
-                    app:backgroundTint="@color/half_black_2"
-                    />
-
-
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:layout_margin="20dip"
+                    android:background="@drawable/radius_drawable_bg"
+                    android:orientation="vertical"
+                    android:padding="10dip">
 
                     <LinearLayout
+                        android:id="@+id/input_layout_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dip"
-                        android:background="@drawable/radius_drawable_bg"
-                        android:orientation="vertical"
-                        android:padding="10dip" >
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/input_layout_name"
+                        <EditText
+                            android:id="@+id/input_signup_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal" >
-
-                            <EditText
-                                android:id="@+id/input_signup_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dip"
-                                android:background="#00000000"
-                                android:hint="账号"
-                                android:padding="5dip"
-                                android:inputType="text"
-                                android:lines="1"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginBottom="5dip"
-                            android:layout_marginTop="5dip"
-                            android:background="#eeeeee" />
-
-                        <LinearLayout
-                            android:id="@+id/input_layout_psw"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal" >
-
-
-                            <EditText
-                                android:id="@+id/input_signup_pwd"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dip"
-                                android:background="#00000000"
-                                android:hint="密码"
-                                android:inputType="textPassword"
-                                android:lines="1"
-                                android:padding="5dip"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginBottom="5dip"
-                            android:layout_marginTop="5dip"
-                            android:background="#eeeeee" />
-                        <LinearLayout
-                            android:id="@+id/input_layout_psw_again"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal" >
-
-
-                            <EditText
-                                android:id="@+id/input_signup_pwd_again"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dip"
-                                android:background="#00000000"
-                                android:hint="再次输入密码"
-                                android:inputType="textPassword"
-                                android:lines="1"
-                                android:padding="5dip"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                            android:layout_marginLeft="10dip"
+                            android:background="#00000000"
+                            android:hint="账号"
+                            android:inputType="text"
+                            android:lines="1"
+                            android:padding="5dip"
+                            android:textSize="16sp" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/input_layout_psw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <EditText
+                            android:id="@+id/input_signup_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:background="#00000000"
+                            android:hint="密码"
+                            android:inputType="textPassword"
+                            android:lines="1"
+                            android:padding="5dip"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/input_layout_psw_again"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <EditText
+                            android:id="@+id/input_signup_pwd_again"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:background="#00000000"
+                            android:hint="再次输入密码"
+                            android:inputType="textPassword"
+                            android:lines="1"
+                            android:padding="5dip"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="5dip"
+                        android:background="#eeeeee" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="5dip"
+                        android:background="#eeeeee" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <!--            <include-->
-                <!--                android:id="@+id/login_layout_progress"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="130dp"-->
-                <!--                layout="@layout/login_layout_progress"-->
-                <!--                android:visibility="gone" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/login_layout_progress"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="130dp"-->
+            <!--                layout="@layout/login_layout_progress"-->
+            <!--                android:visibility="gone" />-->
 
-            </RelativeLayout>
         </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

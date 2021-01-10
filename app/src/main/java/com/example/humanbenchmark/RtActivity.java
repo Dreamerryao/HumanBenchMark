@@ -37,18 +37,19 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RtActivity extends AppCompatActivity {
-    private final String TAG="RtActivity";
+    private final String TAG = "RtActivity";
     Timer timer;
     long startTime;
     String elapsedTime;
     Vibrator vibrator;
-    TextView RtHead,RtTitle;
+    TextView RtHead, RtTitle;
     ConstraintLayout myLayout;
     TimerTask myTimerTask;
     private Context mContext;
     private SharedHelper sh;
     private int useTime;
     private int state = 0;//初始状态
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +58,16 @@ public class RtActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         mContext = getApplicationContext();
-        sh= new SharedHelper(mContext);
+        sh = new SharedHelper(mContext);
         RtHead = findViewById(R.id.RtHead);
         RtTitle = findViewById(R.id.RtTitle);
         myLayout = findViewById(R.id.RtLayout);
     }
+
     final Runnable run = new Runnable() {
         @Override
         public void run() {
-            if(state==1){
+            if (state == 1) {
                 vibrator.vibrate(300);
                 myLayout.setBackgroundColor(getResources().getColor(R.color.green));
                 startTime = SystemClock.elapsedRealtime();
@@ -74,13 +76,14 @@ public class RtActivity extends AppCompatActivity {
 
         }
     };
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 //有按下动作时取消定时
-                Log.d(TAG,"按下");
-                switch (state){
+                Log.d(TAG, "按下");
+                switch (state) {
                     case -2:
                         state = -1;
                         break;
@@ -94,8 +97,8 @@ public class RtActivity extends AppCompatActivity {
                         state = -2;
                         break;
                     case 2:
-                        useTime = (int)(SystemClock.elapsedRealtime() - startTime);
-                        elapsedTime = "Your reaction time is " +useTime+ " ms.";
+                        useTime = (int) (SystemClock.elapsedRealtime() - startTime);
+                        elapsedTime = "Your reaction time is " + useTime + " ms.";
                         PostScore();
                         RtHead.setText(elapsedTime);
                         RtTitle.setVisibility(View.VISIBLE);
@@ -109,8 +112,8 @@ public class RtActivity extends AppCompatActivity {
                 break;
             case MotionEvent.ACTION_UP:
                 //抬起时启动定时
-                Log.d(TAG,"抬起");
-                switch (state){
+                Log.d(TAG, "抬起");
+                switch (state) {
                     case -1:
                         state = 0;
                         RtHead.setText(R.string.react_time_test);
@@ -132,8 +135,8 @@ public class RtActivity extends AppCompatActivity {
                                 runOnUiThread(run);
                             }
                         };
-                        if(timer != null && myTimerTask != null )
-                        timer.schedule(myTimerTask,(int)(Math.random() * 5000 + 1000));
+                        if (timer != null && myTimerTask != null)
+                            timer.schedule(myTimerTask, (int) (Math.random() * 5000 + 1000));
                         break;
                     default:
                         break;
@@ -144,7 +147,7 @@ public class RtActivity extends AppCompatActivity {
 
     }
 
-    public void PostScore(){
+    public void PostScore() {
         new Thread() {
             public void run() {
                 int msg_what = 0x006;
@@ -152,25 +155,25 @@ public class RtActivity extends AppCompatActivity {
                 //拼装url
                 //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
                 try {
-                    Log.e("userId",sh.get(SharedHelper.USERID));
-                    Log.e("score",useTime+"");
-                    String lastUrl = post_url + "?userId="+ URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8")+"&testId=1&score="+URLEncoder.encode(useTime+"", "utf-8");
+                    Log.e("userId", sh.get(SharedHelper.USERID));
+                    Log.e("score", useTime + "");
+                    String lastUrl = post_url + "?userId=" + URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8") + "&testId=1&score=" + URLEncoder.encode(useTime + "", "utf-8");
                     URL url = new URL(lastUrl);
                     HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
                     //设置访问时长和相应时长
-                    urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
-                    urlConn.setReadTimeout(5*1000);//设置读取时间为5秒
+                    urlConn.setConnectTimeout(5 * 1000);//设置连接时间为5秒
+                    urlConn.setReadTimeout(5 * 1000);//设置读取时间为5秒
                     int code = urlConn.getResponseCode();//获得相应码
-                    if(code == 200){//相应成功，获得相应的数据
+                    if (code == 200) {//相应成功，获得相应的数据
                         InputStream is = urlConn.getInputStream();//得到数据流（输入流）
                         byte[] buffer = new byte[1024];
                         int length = 0;
                         String data = "";
-                        while((length = is.read(buffer)) != -1){
-                            String str = new String(buffer,0,length);
+                        while ((length = is.read(buffer)) != -1) {
+                            String str = new String(buffer, 0, length);
                             data += str;
                         }
-                        Log.e("Drea",data);
+                        Log.e("Drea", data);
                         // use properties to restore the map
                         Properties props = new Properties();
                         props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
@@ -185,15 +188,12 @@ public class RtActivity extends AppCompatActivity {
 //                                    Log.e("fufsda",map2.get("resCode"));
 //                                }
                         //解析json，展示在ListView（GridView）
-                        if(map2.containsKey("resCode")&&(map2.get("resCode").equals("400"))){
+                        if (map2.containsKey("resCode") && (map2.get("resCode").equals("400"))) {
                             msg_what = 0x005;
-                        }
-
-                        else {
+                        } else {
                             msg_what = 0x002;
                         }
-                    }
-                    else{
+                    } else {
                         msg_what = 0x007;
                     }
 
@@ -233,6 +233,8 @@ public class RtActivity extends AppCompatActivity {
                     break;
 
             }
-        };
+        }
+
+        ;
     };
 }

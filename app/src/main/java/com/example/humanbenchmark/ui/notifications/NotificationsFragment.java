@@ -28,26 +28,27 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Card> cardList;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         cardList = new ArrayList<>();
 
-        recyclerView = (RecyclerView)root.findViewById(R.id.recyclerView);
-        Log.d(TAG,cardList.toString());
-        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),cardList);
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        Log.d(TAG, cardList.toString());
+        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), cardList);
         prepareCards();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
 
-        recyclerViewAdapter.setOnItemClickListener(new ClickListener<Card>(){
+        recyclerViewAdapter.setOnItemClickListener(new ClickListener<Card>() {
             @Override
             public void onItemClick(Card data) {
                 Toast.makeText(getActivity(), data.getName(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, String.valueOf(data.getPos()));
-                switch(data.getPos()){
+                switch (data.getPos()) {
                     case 0://react-time
                         Intent intent = new Intent(getActivity(), RtActivity.class);
                         startActivity(intent);
@@ -73,15 +74,16 @@ public class NotificationsFragment extends Fragment {
         recyclerView.setAdapter(recyclerViewAdapter);
         return root;
     }
-    private void prepareCards(){
+
+    private void prepareCards() {
         int pos = 0;
-        Card card = new Card("Reaction Time",R.drawable.react_time,pos++);
+        Card card = new Card("Reaction Time", R.drawable.react_time, pos++);
         cardList.add(card);
-        card = new Card("Aim Trainer",R.drawable.aim_trainer,pos++);
+        card = new Card("Aim Trainer", R.drawable.aim_trainer, pos++);
         cardList.add(card);
-        card = new Card("Typing",R.drawable.typing,pos++);
+        card = new Card("Typing", R.drawable.typing, pos++);
         cardList.add(card);
-        card = new Card("Number Memory",R.drawable.number_memory,pos++);
+        card = new Card("Number Memory", R.drawable.number_memory, pos++);
         cardList.add(card);
         recyclerViewAdapter.notifyDataSetChanged();
     }

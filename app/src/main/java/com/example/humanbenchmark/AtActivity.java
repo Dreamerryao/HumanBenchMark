@@ -40,7 +40,7 @@ import java.util.Timer;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AtActivity extends AppCompatActivity {
-    private final String TAG="AtActivity";
+    private final String TAG = "AtActivity";
     CircleImageView aim_image;
     CircleImageView aim_player_img;
     ConstraintLayout AtLayout;
@@ -61,6 +61,7 @@ public class AtActivity extends AppCompatActivity {
     private int rH;
     private int rW;
     private int useTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,34 +78,35 @@ public class AtActivity extends AppCompatActivity {
         context = this;
         cnt = 30;
         mContext = getApplicationContext();
-        sh= new SharedHelper(mContext);
+        sh = new SharedHelper(mContext);
         aim_image.setOnClickListener(
                 v -> {
-                   head.setVisibility(View.INVISIBLE);
-                   title.setVisibility(View.INVISIBLE);
-                   second_title.setVisibility(View.INVISIBLE);
-                   aim_image.setVisibility(View.INVISIBLE);
-                   AtRemain.setVisibility(View.VISIBLE);
-                   AtCounter.setText(cnt+"");
-                   AtCounter.setVisibility(View.VISIBLE);
+                    head.setVisibility(View.INVISIBLE);
+                    title.setVisibility(View.INVISIBLE);
+                    second_title.setVisibility(View.INVISIBLE);
+                    aim_image.setVisibility(View.INVISIBLE);
+                    AtRemain.setVisibility(View.VISIBLE);
+                    AtCounter.setText(cnt + "");
+                    AtCounter.setVisibility(View.VISIBLE);
                     c = new ConstraintSet();
                     c.clone(AtLayout);
-                    c.connect(aim_player_img.getId(),ConstraintSet.RIGHT,ConstraintSet.PARENT_ID,ConstraintSet.RIGHT,rW);
-                    c.connect(aim_player_img.getId(),ConstraintSet.TOP,ConstraintSet.PARENT_ID,ConstraintSet.TOP,rH);
+                    c.connect(aim_player_img.getId(), ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, rW);
+                    c.connect(aim_player_img.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, rH);
                     c.applyTo(AtLayout); // set new constraints
                     aim_player_img.setVisibility(View.VISIBLE);
                     startTime = SystemClock.elapsedRealtime();
                 }
         );
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         realW = AtLayout.getWidth();
         realH = AtLayout.getHeight();
-        rW = (int)(Math.random()*(realW-150))+10;
-        rH = (int)(Math.random()*(realH-150))+10;
-        ConstraintLayout.LayoutParams layoutParams = new  ConstraintLayout.LayoutParams(aim_player_img.getLayoutParams());
+        rW = (int) (Math.random() * (realW - 150)) + 10;
+        rH = (int) (Math.random() * (realH - 150)) + 10;
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(aim_player_img.getLayoutParams());
         layoutParams.topMargin = rH;
         layoutParams.rightMargin = rW;
         aim_player_img.setLayoutParams(layoutParams);
@@ -117,33 +119,32 @@ public class AtActivity extends AppCompatActivity {
 
     public void clickImg(View view) {
         cnt--;
-        AtCounter.setText(cnt+"");
-        if(cnt == 0){
+        AtCounter.setText(cnt + "");
+        if (cnt == 0) {
             cnt = 30;
             AtRemain.setVisibility(View.INVISIBLE);
             AtCounter.setVisibility(View.INVISIBLE);
             aim_player_img.setVisibility(View.INVISIBLE);
             aim_image.setVisibility(View.VISIBLE);
-            useTime = (int)((SystemClock.elapsedRealtime() - startTime)/30);
+            useTime = (int) ((SystemClock.elapsedRealtime() - startTime) / 30);
             PostScore();
-            title.setText("Average time per target is "+useTime+"ms");
+            title.setText("Average time per target is " + useTime + "ms");
             second_title.setText("Click the target above to try again");
             head.setVisibility(View.INVISIBLE);
             title.setVisibility(View.VISIBLE);
             second_title.setVisibility(View.VISIBLE);
-        }
-        else{
-            rW = (int)(Math.random()*(realW-150))+10;
-            rH = (int)(Math.random()*(realH-150))+10;
+        } else {
+            rW = (int) (Math.random() * (realW - 150)) + 10;
+            rH = (int) (Math.random() * (realH - 150)) + 10;
             c = new ConstraintSet();
             c.clone(AtLayout);
-            c.connect(aim_player_img.getId(),ConstraintSet.END,ConstraintSet.PARENT_ID,ConstraintSet.END,rW);
-            c.connect(aim_player_img.getId(),ConstraintSet.TOP,ConstraintSet.PARENT_ID,ConstraintSet.TOP,rH);
+            c.connect(aim_player_img.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, rW);
+            c.connect(aim_player_img.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, rH);
             c.applyTo(AtLayout); // set new constraints
         }
     }
 
-    public void PostScore(){
+    public void PostScore() {
         new Thread() {
             public void run() {
                 int msg_what = 0x006;
@@ -151,25 +152,25 @@ public class AtActivity extends AppCompatActivity {
                 //拼装url
                 //URLEncoder.encode对汉字进行编码，服务器进行解码设置，解决中文乱码
                 try {
-                    Log.e("userId",sh.get(SharedHelper.USERID));
-                    Log.e("score",useTime+"");
-                    String lastUrl = post_url + "?userId="+ URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8")+"&testId=2&score="+URLEncoder.encode(useTime+"", "utf-8");
+                    Log.e("userId", sh.get(SharedHelper.USERID));
+                    Log.e("score", useTime + "");
+                    String lastUrl = post_url + "?userId=" + URLEncoder.encode(sh.get(SharedHelper.USERID), "utf-8") + "&testId=2&score=" + URLEncoder.encode(useTime + "", "utf-8");
                     URL url = new URL(lastUrl);
                     HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
                     //设置访问时长和相应时长
-                    urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
-                    urlConn.setReadTimeout(5*1000);//设置读取时间为5秒
+                    urlConn.setConnectTimeout(5 * 1000);//设置连接时间为5秒
+                    urlConn.setReadTimeout(5 * 1000);//设置读取时间为5秒
                     int code = urlConn.getResponseCode();//获得相应码
-                    if(code == 200){//相应成功，获得相应的数据
+                    if (code == 200) {//相应成功，获得相应的数据
                         InputStream is = urlConn.getInputStream();//得到数据流（输入流）
                         byte[] buffer = new byte[1024];
                         int length = 0;
                         String data = "";
-                        while((length = is.read(buffer)) != -1){
-                            String str = new String(buffer,0,length);
+                        while ((length = is.read(buffer)) != -1) {
+                            String str = new String(buffer, 0, length);
                             data += str;
                         }
-                        Log.e("Drea",data);
+                        Log.e("Drea", data);
                         // use properties to restore the map
                         Properties props = new Properties();
                         props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
@@ -184,15 +185,12 @@ public class AtActivity extends AppCompatActivity {
 //                                    Log.e("fufsda",map2.get("resCode"));
 //                                }
                         //解析json，展示在ListView（GridView）
-                        if(map2.containsKey("resCode")&&(map2.get("resCode").equals("400"))){
+                        if (map2.containsKey("resCode") && (map2.get("resCode").equals("400"))) {
                             msg_what = 0x005;
-                        }
-
-                        else {
+                        } else {
                             msg_what = 0x002;
                         }
-                    }
-                    else{
+                    } else {
                         msg_what = 0x007;
                     }
 
@@ -232,6 +230,8 @@ public class AtActivity extends AppCompatActivity {
                     break;
 
             }
-        };
+        }
+
+        ;
     };
 }

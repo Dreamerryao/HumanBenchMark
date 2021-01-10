@@ -16,21 +16,20 @@ public class GetData {
     private static final int TIME_OUT = 10 * 1000;//超时时间
     private static final String CHARSET = "utf-8";//设置编码
 
-    public static String getFormbodyPostData(String url, HashMap<String, String> paramsMap, boolean first)
-    {
+    public static String getFormbodyPostData(String url, HashMap<String, String> paramsMap, boolean first) {
         try {
             URL myUrl = new URL(url);
 
             Log.e("XIAOXIE", "getFormbodyPostData: " + myUrl.getPath());
 
             //connect
-            HttpURLConnection connection = (HttpURLConnection)myUrl.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) myUrl.openConnection();
 
             //setting
             connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
 //            connection.setRequestMethod("POST");
-            if(sessionID != null){
+            if (sessionID != null) {
                 connection.setRequestProperty("cookie", sessionID);
             }
 
@@ -46,7 +45,7 @@ public class GetData {
                 if (pos > 0) {
                     params.append("&");
                 }
-                Log.e("KEY", "Key: " + key + " "+ paramsMap.get(key));
+                Log.e("KEY", "Key: " + key + " " + paramsMap.get(key));
                 params.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
                 pos++;
             }
@@ -56,10 +55,10 @@ public class GetData {
             outputStreamWriter.flush();
             outputStreamWriter.close();
 
-            if(first){
+            if (first) {
                 //get set-cookie
                 String cookieval = connection.getHeaderField("set-cookie");
-                if(cookieval != null) {
+                if (cookieval != null) {
                     //get sessionId
                     sessionID = cookieval.substring(0, cookieval.indexOf(";"));
                 }
@@ -67,26 +66,25 @@ public class GetData {
 
             int resultCode = connection.getResponseCode();
             Log.e("GetData", "getFormbodyPostData: rescode = " + resultCode);
-            if(resultCode == HttpURLConnection.HTTP_OK) {
+            if (resultCode == HttpURLConnection.HTTP_OK) {
                 //Success
                 StringBuffer buffer = new StringBuffer();
                 String line;
                 //Get the response
                 BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-                while((line = responseReader.readLine()) != null) {
+                while ((line = responseReader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
                 responseReader.close();
-                String result= buffer.toString();
+                String result = buffer.toString();
                 System.out.print("Get response : " + result);
                 System.out.print("Get response : " + buffer.toString());
 
                 return result;
-            }
-            else {
+            } else {
                 System.out.println("Nothing");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.e("GetData", "getFormbodyPostData: " + e.toString());
             e.printStackTrace();
         }
@@ -94,8 +92,7 @@ public class GetData {
     }
 
 
-    public static String getFormbodyPostData(String url, HashMap<String, String> paramsMap)
-    {
+    public static String getFormbodyPostData(String url, HashMap<String, String> paramsMap) {
         return getFormbodyPostData(url, paramsMap, false);
     }
 

@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.HumanBenchMark">
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".StatsActivity" />
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".StatsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />

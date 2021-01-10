@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".StatsActivity">
     <androidx.cardview.widget.CardView
+        android:id="@+id/stats_title_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -63,4 +64,40 @@
             app:srcCompat="@drawable/play" />
     </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@+id/stats_title_card"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/stats_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"
+            android:textSize="16sp"
+            android:text="最近成绩"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stats_head"
+            android:orientation="horizontal">
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
+      </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

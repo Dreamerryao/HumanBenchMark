@@ -23,12 +23,13 @@ import java.util.HashMap;
 public class InitActivity extends AppCompatActivity {
     private String key;
     private SharedHelper sh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
         sh = new SharedHelper(getApplicationContext());
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 // send init message to server
@@ -41,14 +42,14 @@ public class InitActivity extends AppCompatActivity {
                 // Send Request
                 String res = GetData.getFormbodyPostData(url, argus, true);
 //                Log.d("Dreamerryao",res+" ???");
-                if(res == null){
+                if (res == null) {
                     handler.sendEmptyMessage(0x002);
                     return;
                 }
 //                JSONObject res_json = JSONObject.fromObject(res);
 
                 // judge if success
-                if(res.indexOf("success")!=-1){
+                if (res.indexOf("success") != -1) {
 //                    String username = sh.get(SharedHelper.USERNAME);
 //                    String password = sh.get(SharedHelper.PASSWORD);
 //                    // try login
@@ -65,7 +66,8 @@ public class InitActivity extends AppCompatActivity {
 //                        String login_res = GetData.getFormbodyPostData(login_url, arguments, false);
 //                        JSONObject login_json = JSONObject.fromObject(login_res);
 //
-//                        // check server
+//
+// check server
 //                        if(login_json == null){
 //                            handler.sendEmptyMessage(0x002);
 //                            return;
@@ -80,8 +82,7 @@ public class InitActivity extends AppCompatActivity {
 //                        }
 //                    }
                     handler.sendEmptyMessage(0x003);
-                }
-                else{
+                } else {
                     handler.sendEmptyMessage(0x002);
                 }
 
@@ -93,9 +94,10 @@ public class InitActivity extends AppCompatActivity {
 //        // jump to login
 //        startActivity(intent);
     }
+
     // init to server
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 //            if(msg.what == 0x001){      // login successfully
@@ -107,14 +109,13 @@ public class InitActivity extends AppCompatActivity {
 //                // jump to login
 //                startActivity(intent);
 //            }
-            if(msg.what == 0x002){
+            if (msg.what == 0x002) {
                 Toast.makeText(InitActivity.this, "服务器连接失败，请检查你的网络状况！", Toast.LENGTH_SHORT).show();
-            }
-            else if(msg.what == 0x003){
+            } else if (msg.what == 0x003) {
                 // get extra paraments
                 Toast.makeText(InitActivity.this, "服务器连接成功！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(InitActivity.this, LoginActivity.class);
 
                 // jump to login

@@ -15,7 +15,7 @@
             android:id="@+id/card_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
@@ -50,6 +50,7 @@
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/half_black_2"
                     android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/title_time"
                     android:layout_width="wrap_content"
@@ -68,52 +70,29 @@
                     android:text="Today"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="sans-serif"
-                    android:text="User Id"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/half_black_2"
-                    android:textSize="14sp" />
-                <TextView
-                    android:id="@+id/user_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="sans-serif"
-                    android:text="-1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_list"
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:id="@+id/card_list"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="8dp"-->
+        <!--            android:clickable="true"-->
+        <!--            android:layout_below="@+id/card_title"-->
+        <!--            android:foreground="?android:attr/selectableItemBackground"-->
+        <!--            app:cardCornerRadius="8dp"-->
+        <!--            app:cardElevation="8dp">-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dashboard_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:clickable="true"
             android:layout_below="@+id/card_title"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dashboard_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                tools:listitem="@layout/list_adapter_layout" />
-        </androidx.cardview.widget.CardView>
-<!--        <com.github.mikephil.charting.charts.LineChart-->
-<!--            android:id="@+id/lineChart"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="220dp"-->
-<!--            android:layout_below="@+id/card_title"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            tools:ignore="MissingConstraints" />-->
+            android:background="@android:color/white"
+            tools:listitem="@layout/list_adapter_layout" />
+        <!--        </androidx.cardview.widget.CardView>-->
+
     </RelativeLayout>
 </FrameLayout>

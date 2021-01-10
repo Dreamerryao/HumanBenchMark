@@ -11,28 +11,29 @@ public class SharedHelper {
     public static final String TEMPUSERNAME = "tempusername";
     public static final String LOGINTIME = "logintime";
     public static final String USERID = "userid";
+
     public SharedHelper() {
     }
-    public SharedHelper(Context context)
-    {
-        mContext= context;
+
+    public SharedHelper(Context context) {
+        mContext = context;
     }
 
-    public void save(String key, String value){
+    public void save(String key, String value) {
         // get edit
-        SharedPreferences sp = mContext.getSharedPreferences( APP, Context.MODE_PRIVATE);
+        SharedPreferences sp = mContext.getSharedPreferences(APP, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         //save
         editor.putString(key, value);
         editor.apply();
     }
 
-    public String get(String key){
+    public String get(String key) {
         // get key
         SharedPreferences sp = mContext.getSharedPreferences(APP, Context.MODE_PRIVATE);
         String value = sp.getString(key, "");
-        if(value.equals(""))
+        if (value.equals(""))
             return null;
-        return  value;
+        return value;
     }
 }

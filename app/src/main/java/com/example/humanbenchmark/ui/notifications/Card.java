@@ -5,13 +5,15 @@ public class Card {
     private int pos;
     private int image;
 
-    public Card(String name, int image,int pos) {
+    public Card(String name, int image, int pos) {
         this.pos = pos;
         this.name = name;
         this.image = image;
     }
 
-    public int getPos(){return pos;}
+    public int getPos() {
+        return pos;
+    }
 
     public String getName() {
         return name;

@@ -11,21 +11,22 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
 import com.example.humanbenchmark.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
     private List<Card> cardList;
     private ClickListener<Card> clickListener;
 
-    RecyclerViewAdapter(Context context,List<Card> cardList){
+    RecyclerViewAdapter(Context context, List<Card> cardList) {
         this.context = context;//上下文
         this.cardList = cardList;
     }
 
     @Override
     public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_adapter_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_adapter_layout, parent, false);
 //        View view = View.inflate(context, R.layout.recyclerview_adapter_layout, null);
 
         return new MyViewHolder(view);
