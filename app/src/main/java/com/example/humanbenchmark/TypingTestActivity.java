@@ -195,8 +195,6 @@ public class TypingTestActivity extends AppCompatActivity {
                         tt_cpm.setText(time == 0 ? 0 + "" : (int) (success * 60 / time) + "");
                     }
                 });
-
-                Log.i("TAG", "这是普通方式的TimerTask");
             }
         }, 0, 1000);
     }
@@ -266,15 +264,8 @@ public class TypingTestActivity extends AppCompatActivity {
                         props.load(new StringReader(data.substring(1, data.length() - 2).replace(",", "\n")));
                         Map<String, String> map2 = new HashMap<String, String>();
                         for (Map.Entry<Object, Object> e : props.entrySet()) {
-//                                    Log.e("Fuck",e.getKey().toString());
-//                                    Log.e("Fuckk",e.getValue().toString());
                             map2.put(e.getKey().toString(), e.getValue().toString());
                         }
-//                                Log.e("Drea",map2.toString());
-//                                if(map2.containsKey("resCode")){
-//                                    Log.e("fufsda",map2.get("resCode"));
-//                                }
-                        //解析json，展示在ListView（GridView）
                         if (map2.containsKey("resCode") && (map2.get("resCode").equals("400"))) {
                             msg_what = 0x005;
                         } else {
@@ -304,7 +295,6 @@ public class TypingTestActivity extends AppCompatActivity {
                 case 0x002:
                     Toast.makeText(TypingTestActivity.this, "上传成绩失败", Toast.LENGTH_SHORT).show();
                     break;
-
                 case 0x005:
                     Toast.makeText(TypingTestActivity.this, "上传成绩成功", Toast.LENGTH_SHORT).show();
 

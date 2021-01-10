@@ -111,10 +111,6 @@ public class AtActivity extends AppCompatActivity {
         layoutParams.rightMargin = rW;
         aim_player_img.setLayoutParams(layoutParams);
 
-//        Log.d("h_bl", "屏幕宽度（像素）：" + realW);
-//        Log.d("h_bl", "屏幕高度（像素）：" + realH);
-//        Log.d("h_bl", "marginTop：" + rH);
-//        Log.d("h_bl", "marginRight：" + rW);
     }
 
     public void clickImg(View view) {

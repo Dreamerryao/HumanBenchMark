@@ -20,8 +20,6 @@ public class GetData {
         try {
             URL myUrl = new URL(url);
 
-            Log.e("XIAOXIE", "getFormbodyPostData: " + myUrl.getPath());
-
             //connect
             HttpURLConnection connection = (HttpURLConnection) myUrl.openConnection();
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,19 +35,13 @@ public class InitActivity extends AppCompatActivity {
             public void run() {
                 // send init message to server
                 HashMap<String, String> argus = new HashMap<>();
-
                 // Api url
                 String url = APIUtils.INIT_URL;
-//                Log.e("Dreamerryao", "run: " + url);
-
-                // Send Request
                 String res = GetData.getFormbodyPostData(url, argus, true);
-//                Log.d("Dreamerryao",res+" ???");
                 if (res == null) {
                     handler.sendEmptyMessage(0x002);
                     return;
                 }
-//                JSONObject res_json = JSONObject.fromObject(res);
 
                 // judge if success
                 if (res.indexOf("success") != -1) {
@@ -57,11 +52,6 @@ public class InitActivity extends AppCompatActivity {
 
             }
         }.start();
-//        Intent intent = new Intent();
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.setClass(InitActivity.this, LoginActivity.class);
-//        // jump to login
-//        startActivity(intent);
     }
 
     // init to server
@@ -69,25 +59,16 @@ public class InitActivity extends AppCompatActivity {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-//            if(msg.what == 0x001){      // login successfully
-//                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-//                // get extra paraments
-//                Intent intent = new Intent();
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.setClass(InitActivity.this, MainActivity.class);
-//                // jump to login
-//                startActivity(intent);
-//            }
+
             if (msg.what == 0x002) {
                 Toast.makeText(InitActivity.this, "服务器连接失败，请检查你的网络状况！", Toast.LENGTH_SHORT).show();
             } else if (msg.what == 0x003) {
                 // get extra paraments
                 Toast.makeText(InitActivity.this, "服务器连接成功！", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(InitActivity.this, LoginActivity.class);
-
-                // jump to login
                 startActivity(intent);
             }
         }
